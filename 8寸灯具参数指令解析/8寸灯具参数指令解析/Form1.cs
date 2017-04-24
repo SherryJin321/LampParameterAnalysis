@@ -16,9 +16,8 @@ namespace _8寸灯具参数指令解析
     public partial class Form1 : Form
     {
         //设置全局变量
-
-        byte[] byteData;                      //声明字节数组，存储文件数据
-        int Number = 0;                       //定义变量测试次数
+        ArrayList InputData = new ArrayList();   //输入数据集合
+        int intCode = 0;        
         
         //Excel文件保存
         string str_fileName;                                                  //定义变量Excel文件名
@@ -49,24 +48,38 @@ namespace _8寸灯具参数指令解析
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //清空集合内容
+            RMS1.Clear();
+            Val2.Clear();
+            Val3.Clear();
+            RMS.Clear();
+            Current_Ratio1.Clear();
+            Current_Ratio3.Clear();
+            RES_IA.Clear();
+            RES_IIA.Clear();
+            SNS_IA.Clear();
+            SNS_IIA.Clear();
+            LED_F1.Clear();
+            T.Clear();
+            Second.Clear();
+            InputData.Clear();
+
             try
-            {                    
-                FileStream aFile = new FileStream(InputFileName.Text, FileMode.Open, FileAccess.Read);                
-                                       
-                try
-                {
-                    Number = Convert.ToInt32(TestNumber.Text);
-                    byteData = new byte[96 * Number];
-                    aFile.Read(byteData, 0, 96 * Number);
+            {
+                FileStream aFile = new FileStream(InputFileName.Text, FileMode.Open);
+                StreamReader sr = new StreamReader(aFile);                   
 
-                    DataAnalysis(byteData);
-
-                    EightInchesLampParametersCreatExcel();
-                }
-                catch
+                intCode = sr.Read();
+                while(intCode!=-1)
                 {
-                    MessageBox.Show("请输入阿拉伯数字", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    InputData.Add(intCode);
+                    intCode = sr.Read();
                 }
+                sr.Close();
+                
+                DataAnalysis(InputData);          
+
+                EightInchesLampParametersCreatExcel();              
                 
             }
             catch
@@ -75,45 +88,46 @@ namespace _8寸灯具参数指令解析
             }
         }
 
-        void DataAnalysis(byte[] byteDataAnalysis)
+        void DataAnalysis(ArrayList byteDataAnalysis)
         {
-            for(int i=0;i<Number;i++)
+            for (int i = 0; i < byteDataAnalysis.Count/96; i++)
             {
-                if(byteDataAnalysis[96*i]=='0'&&byteDataAnalysis[96*i+1]=='2')
+                if ((int)byteDataAnalysis[96 * i] == 48 && (int)byteDataAnalysis[96 * i + 1] == 50)
                 {
-                    RMS1.Add(DataMakeUp(byteDataAnalysis[96 * i + 15], byteDataAnalysis[96 * i + 16]) * 1100);
-                    Val2.Add(DataMakeUp(byteDataAnalysis[96 * i + 18], byteDataAnalysis[96 * i + 19]) * 20);
-                    Val3.Add(DataMakeUp(byteDataAnalysis[96 * i + 21], byteDataAnalysis[96 * i + 22]));
-                    RMS.Add(DataMakeUp(byteDataAnalysis[96 * i + 24], byteDataAnalysis[96 * i + 25]) * 4);
-                    Current_Ratio1.Add((float)(DataMakeUp(byteDataAnalysis[96 * i + 27], byteDataAnalysis[96 * i + 28])/10.0));
-                    Current_Ratio3.Add((float)(DataMakeUp(byteDataAnalysis[96 * i + 30], byteDataAnalysis[96 * i + 31])/10.0));
-                    RES_IA.Add(DataMakeUp(byteDataAnalysis[96 * i + 33], byteDataAnalysis[96 * i + 34]) * 124);
-                    RES_IIA.Add(DataMakeUp(byteDataAnalysis[96 * i + 36], byteDataAnalysis[96 * i + 37]) * 124);
-                    SNS_IA.Add(DataMakeUp(byteDataAnalysis[96 * i + 39], byteDataAnalysis[96 * i + 40]) * 16);
-                    SNS_IIA.Add(DataMakeUp(byteDataAnalysis[96 * i + 42], byteDataAnalysis[96 * i + 43]) * 16);
-                    LED_F1.Add(DataMakeUp(byteDataAnalysis[96 * i + 45], byteDataAnalysis[96 * i + 46]));
-                    T.Add(DataMakeUp(byteDataAnalysis[96 * i + 48], byteDataAnalysis[96 * i + 49]));
+                    RMS1.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 15], (int)byteDataAnalysis[96 * i + 16]) * 1100);
+                    Val2.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 18], (int)byteDataAnalysis[96 * i + 19]) * 20);
+                    Val3.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 21], (int)byteDataAnalysis[96 * i + 22]));
+                    RMS.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 24], (int)byteDataAnalysis[96 * i + 25]) * 4);
+                    Current_Ratio1.Add((float)(DataMakeUp((int)byteDataAnalysis[96 * i + 27], (int)byteDataAnalysis[96 * i + 28]) / 10.0));
+                    Current_Ratio3.Add((float)(DataMakeUp((int)byteDataAnalysis[96 * i + 30], (int)byteDataAnalysis[96 * i + 31]) / 10.0));
+                    RES_IA.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 33], (int)byteDataAnalysis[96 * i + 34]) * 124);
+                    RES_IIA.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 36], (int)byteDataAnalysis[96 * i + 37]) * 124);
+                    SNS_IA.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 39], (int)byteDataAnalysis[96 * i + 40]) * 16);
+                    SNS_IIA.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 42], (int)byteDataAnalysis[96 * i + 43]) * 16);
+                    LED_F1.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 45], (int)byteDataAnalysis[96 * i + 46]));
+                    T.Add(DataMakeUp((int)byteDataAnalysis[96 * i + 48], (int)byteDataAnalysis[96 * i + 49]));
 
                     int SecondResult = 0;
-                    for (int j=0;j<4;j++)
+                    for (int j = 0; j < 4; j++)
                     {
-                        int SecondOrigin = (Int32)DataMakeUp(byteDataAnalysis[96 * i + (17 + j) * 3], byteDataAnalysis[96 * i + (17 + j) * 3 + 1]);                       
+                        int SecondOrigin = (Int32)DataMakeUp((int)byteDataAnalysis[96 * i + (17 + j) * 3], (int)byteDataAnalysis[96 * i + (17 + j) * 3 + 1]);
                         SecondResult |= SecondOrigin;
-                        if(j<3)
+                        if (j < 3)
                         {
                             SecondResult <<= 8;
-                        }                                                                      
+                        }
                     }
-                    Second.Add(SecondResult);                   
+                    Second.Add(SecondResult);
                 }
                 else
                 {
-                    MessageBox.Show("测试次数错误！请输入正确的测试次数", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("文件格式错误！请确认文件内容", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        byte DataMakeUp(byte RawData1,byte RawData2)
+
+        byte DataMakeUp(int RawData1,int RawData2)
         {
             byte DataAfter1 = DataTypeConversion(RawData1);
             byte DataAfter2 = DataTypeConversion(RawData2);
@@ -124,28 +138,28 @@ namespace _8寸灯具参数指令解析
             return DataAfter1;
         }
 
-        byte DataTypeConversion(byte RawData0)
+        byte DataTypeConversion(int RawData0)
         {
             byte Result = 0x00;
 
             switch (RawData0)
             {
-                case 0x30: Result = 0x00; break;
-                case 0x31: Result = 0x01; break;
-                case 0x32: Result = 0x02; break;
-                case 0x33: Result = 0x03; break;
-                case 0x34: Result = 0x04; break;
-                case 0x35: Result = 0x05; break;
-                case 0x36: Result = 0x06; break;
-                case 0x37: Result = 0x07; break;
-                case 0x38: Result = 0x08; break;
-                case 0x39: Result = 0x09; break;
-                case 0x41: Result = 0x0A; break;
-                case 0x42: Result = 0x0B; break;
-                case 0x43: Result = 0x0C; break;
-                case 0x44: Result = 0x0D; break;
-                case 0x45: Result = 0x0E; break;
-                case 0x46: Result = 0x0F; break;               
+                case 48: Result = 0x00; break;
+                case 49: Result = 0x01; break;
+                case 50: Result = 0x02; break;
+                case 51: Result = 0x03; break;
+                case 52: Result = 0x04; break;
+                case 53: Result = 0x05; break;
+                case 54: Result = 0x06; break;
+                case 55: Result = 0x07; break;
+                case 56: Result = 0x08; break;
+                case 57: Result = 0x09; break;
+                case 65: Result = 0x0A; break;
+                case 66: Result = 0x0B; break;
+                case 67: Result = 0x0C; break;
+                case 68: Result = 0x0D; break;
+                case 69: Result = 0x0E; break;
+                case 70: Result = 0x0F; break;               
             }
 
             return Result;
@@ -199,8 +213,7 @@ namespace _8寸灯具参数指令解析
 
             ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
             ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
-            ExcelApp.Quit();                                                                      //退出Excel应用程序
-
+            ExcelApp.Quit();                                                                      //退出Excel应用程序            
         }
 
        
