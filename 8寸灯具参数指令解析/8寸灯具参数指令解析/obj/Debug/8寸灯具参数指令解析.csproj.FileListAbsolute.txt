@@ -12,3 +12,9 @@ C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8�
 C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\obj\Debug\8寸灯具参数指令解析.csproj.ResolveComReference.cache
 C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\obj\Debug\8寸灯具参数指令解析.exe
 C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\obj\Debug\8寸灯具参数指令解析.pdb
+C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\bin\Debug\8寸灯具参数指令解析.exe
+C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\bin\Debug\8寸灯具参数指令解析.pdb
+C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\obj\Debug\8寸灯具参数指令解析.csprojResolveAssemblyReference.cache
+C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\obj\Debug\_8寸灯具参数指令解析.Form1.resources
+C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\obj\Debug\_8寸灯具参数指令解析.Properties.Resources.resources
+C:\Users\JXY\Source\Repos\LampParameterAnalysis\8寸灯具参数指令解析\8寸灯具参数指令解析\obj\Debug\8寸灯具参数指令解析.csproj.GenerateResource.Cache
