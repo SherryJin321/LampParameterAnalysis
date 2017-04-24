@@ -16,8 +16,8 @@ namespace _8寸灯具参数指令解析
     public partial class Form1 : Form
     {
         //设置全局变量
-        ArrayList InputData = new ArrayList();   //输入数据集合
-        int intCode = 0;        
+        ArrayList InputData = new ArrayList();     //定义集合，存储整个文件数据
+        int intCode = 0;                           //定义变量，存储一次读取文件返回的数据
         
         //Excel文件保存
         string str_fileName;                                                  //定义变量Excel文件名
@@ -67,8 +67,9 @@ namespace _8寸灯具参数指令解析
             try
             {
                 FileStream aFile = new FileStream(InputFileName.Text, FileMode.Open);
-                StreamReader sr = new StreamReader(aFile);                   
+                StreamReader sr = new StreamReader(aFile);
 
+                //读取整个文件数据
                 intCode = sr.Read();
                 while(intCode!=-1)
                 {
@@ -79,8 +80,7 @@ namespace _8寸灯具参数指令解析
                 
                 DataAnalysis(InputData);          
 
-                EightInchesLampParametersCreatExcel();              
-                
+                EightInchesLampParametersCreatExcel();                              
             }
             catch
             {
@@ -88,6 +88,10 @@ namespace _8寸灯具参数指令解析
             }
         }
 
+        /// <summary>
+        /// 函数功能：解析指令，将各个参数值保存在各自的集合中
+        /// </summary>
+        /// <param name="byteDataAnalysis"></param>
         void DataAnalysis(ArrayList byteDataAnalysis)
         {
             for (int i = 0; i < byteDataAnalysis.Count/96; i++)
@@ -126,7 +130,12 @@ namespace _8寸灯具参数指令解析
             }
         }
 
-
+        /// <summary>
+        /// 函数功能：将两个十六进制数组合成一个字节变量
+        /// </summary>
+        /// <param name="RawData1"></param>
+        /// <param name="RawData2"></param>
+        /// <returns></returns>
         byte DataMakeUp(int RawData1,int RawData2)
         {
             byte DataAfter1 = DataTypeConversion(RawData1);
@@ -138,6 +147,11 @@ namespace _8寸灯具参数指令解析
             return DataAfter1;
         }
 
+        /// <summary>
+        /// 函数功能：导入存储为ASCII表十进制数的int类型变量，导出对应字符的十六进制数
+        /// </summary>
+        /// <param name="RawData0"></param>
+        /// <returns></returns>
         byte DataTypeConversion(int RawData0)
         {
             byte Result = 0x00;
@@ -163,11 +177,11 @@ namespace _8寸灯具参数指令解析
             }
 
             return Result;
-
         }
-
             
-
+        /// <summary>
+        /// 函数功能：创建Excel文件
+        /// </summary>
         void EightInchesLampParametersCreatExcel()
         {
             //创建excel模板
@@ -193,6 +207,7 @@ namespace _8寸灯具参数指令解析
             ExcelSheet.Cells[2, 13] = "T";
             ExcelSheet.Cells[2, 14] = "Second";
 
+            //输出各个参数值
             for(int i=0;i<RMS1.Count;i++)
             {
                 ExcelSheet.Cells[3+i, 1] = (i + 1).ToString();
@@ -214,8 +229,6 @@ namespace _8寸灯具参数指令解析
             ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
             ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
             ExcelApp.Quit();                                                                      //退出Excel应用程序            
-        }
-
-       
+        }       
     }
 }
