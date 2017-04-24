@@ -86,8 +86,8 @@ namespace _8寸灯具参数指令解析
                     Val2.Add(DataMakeUp(byteDataAnalysis[96 * i + 18], byteDataAnalysis[96 * i + 19]) * 20);
                     Val3.Add(DataMakeUp(byteDataAnalysis[96 * i + 21], byteDataAnalysis[96 * i + 22]));
                     RMS.Add(DataMakeUp(byteDataAnalysis[96 * i + 24], byteDataAnalysis[96 * i + 25]) * 4);
-                    Current_Ratio1.Add(DataMakeUp(byteDataAnalysis[96 * i + 27], byteDataAnalysis[96 * i + 28])/10);
-                    Current_Ratio3.Add(DataMakeUp(byteDataAnalysis[96 * i + 30], byteDataAnalysis[96 * i + 31])/10);
+                    Current_Ratio1.Add((float)(DataMakeUp(byteDataAnalysis[96 * i + 27], byteDataAnalysis[96 * i + 28])/10.0));
+                    Current_Ratio3.Add((float)(DataMakeUp(byteDataAnalysis[96 * i + 30], byteDataAnalysis[96 * i + 31])/10.0));
                     RES_IA.Add(DataMakeUp(byteDataAnalysis[96 * i + 33], byteDataAnalysis[96 * i + 34]) * 124);
                     RES_IIA.Add(DataMakeUp(byteDataAnalysis[96 * i + 36], byteDataAnalysis[96 * i + 37]) * 124);
                     SNS_IA.Add(DataMakeUp(byteDataAnalysis[96 * i + 39], byteDataAnalysis[96 * i + 40]) * 16);
