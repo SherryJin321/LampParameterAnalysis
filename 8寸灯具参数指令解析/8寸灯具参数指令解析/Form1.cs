@@ -50,29 +50,28 @@ namespace _8寸灯具参数指令解析
         private void button1_Click(object sender, EventArgs e)
         {
             try
-            {
-                FileStream aFile = new FileStream(InputFileName.Text, FileMode.Open, FileAccess.Read);
-                       
+            {                    
+                FileStream aFile = new FileStream(InputFileName.Text, FileMode.Open, FileAccess.Read);                
+                                       
                 try
                 {
                     Number = Convert.ToInt32(TestNumber.Text);
+                    byteData = new byte[96 * Number];
+                    aFile.Read(byteData, 0, 96 * Number);
+
+                    DataAnalysis(byteData);
+
+                    EightInchesLampParametersCreatExcel();
                 }
                 catch
                 {
                     MessageBox.Show("请输入阿拉伯数字", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                byteData = new byte[96 * Number];
-                aFile.Read(byteData, 0, 96*Number);
-
-                DataAnalysis(byteData);
-
-                EightInchesLampParametersCreatExcel();
-
+                
             }
             catch
             {
-
+                MessageBox.Show("未找到文件！请确认文件路径是否正确输入", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -109,7 +108,7 @@ namespace _8寸灯具参数指令解析
                 }
                 else
                 {
-                    MessageBox.Show("指令错误！请确认导入文件数据", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("测试次数错误！请输入正确的测试次数", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -204,6 +203,6 @@ namespace _8寸灯具参数指令解析
 
         }
 
-
+       
     }
 }

@@ -91,6 +91,7 @@
             this.TestNumber.Name = "TestNumber";
             this.TestNumber.Size = new System.Drawing.Size(100, 26);
             this.TestNumber.TabIndex = 7;
+     
             // 
             // Form1
             // 
