@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8寸灯具参数指令解析", "8寸灯具参数指令解析\8寸灯具参数指令解析.csproj", "{2FD0AED2-70B5-4A16-B6DB-BEB3859C9DBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "灯具参数指令解析", "8寸灯具参数指令解析\灯具参数指令解析.csproj", "{2FD0AED2-70B5-4A16-B6DB-BEB3859C9DBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
